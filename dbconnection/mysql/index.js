@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('shipper', 'shipper', '123456', {
-  host: '35.201.228.124',
+  host: 'localhost',
   port: 3306,
   dialect: 'mysql',
   logging: false,

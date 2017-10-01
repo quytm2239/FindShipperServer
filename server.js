@@ -31,6 +31,6 @@ var apiRouter = express.Router();
 app.use(config.api_path,apiRouter);
 routes = require('./routes')(app,apiRouter)
 
-server.listen(process.env.PORT || 9090, function(){
+server.listen(process.env.PORT || config.PORT, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env)
 })
