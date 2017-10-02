@@ -27,4 +27,20 @@ module.exports = function(app,config,afterRouter,controller){
 			}
 		});
 	});
+
+	afterRouter.post('/profile', function(req, res) {
+
+		var address 		= req.body.address;
+		var phone 			= req.body.phone;
+		var account_id	 	= req.decoded.id;
+
+		controller.Profile.update(account_id,address,phone,function(err, updated) {
+			if (err) {
+				res.status(500).send(utils.responseWithSuccess(false, err,[]));
+			} else {
+				var responseContent = utils.responseWithSuccess(true, 'Thành công',[]);
+				res.status(200).send(responseContent);
+			}
+		});
+	});
 };
