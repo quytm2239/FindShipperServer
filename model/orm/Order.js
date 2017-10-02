@@ -6,9 +6,9 @@ var Order = sequelize.define('Order', {
     id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
     account_id: Sequelize.INTEGER,
     status: Sequelize.INTEGER, // (0 open, 1 choosing, 2 delivering, 3 closed, 4 expired)
-    open_time: Sequelize.STRING,
-    close_time: Sequelize.STRING,
-    expired_time: Sequelize.STRING,
+    open_time: Sequelize.DATE,
+    close_time: Sequelize.DATE,
+    expired_time: Sequelize.DATE,
     content: Sequelize.STRING,
     total: Sequelize.STRING,
     deposit: Sequelize.STRING, //( tiền cọc cho shipper)

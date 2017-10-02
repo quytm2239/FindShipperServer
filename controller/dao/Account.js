@@ -1,5 +1,4 @@
 const Account = require('./../../model').Account;
-const Sequelize = require('sequelize');
 
 module.exports =
 {
@@ -24,10 +23,10 @@ module.exports =
                 email: email,
             }
         }).then(found => {
-            if (found.dataValues) {
+            if (found && found.dataValues) {
                 callback(null,found.dataValues);
             } else {
-                callback('Email không tồn tại',null);
+                callback(null,null);
             }
         }).catch(err => {
             callback(err,null);

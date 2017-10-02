@@ -7,11 +7,11 @@ const await = require('asyncawait/await');
 
 var Sequelize = require('sequelize');
 
-module.exports = function(app,apiRouter,controller){
+module.exports = function(app,config,beforeRouter,controller){
 	var utils = app.get('utils');
 	var errcode = app.get('errcode');
 
-	apiRouter.post('/register', function(req, res) {
+	beforeRouter.post('/register', function(req, res) {
 
 		var email 	= req.body.email;
 		var password 		= req.body.password;

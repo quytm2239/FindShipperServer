@@ -1,10 +1,9 @@
 const Profile = require('./../../model').Profile;
-const Sequelize = require('sequelize');
 
 module.exports =
 {
     update: function (account_id,address,phone,rate,callback) {
-        return Profile.create({
+        Profile.update({
             address: address,
             phone: phone,
             rate: rate
@@ -18,16 +17,27 @@ module.exports =
             return err;
         });
     },
-    selectById: function (id,account_id) {
-        return Profile.findOne({
-            where: {
-                account_id: account_id,
+    selectById: function (id,account_id,callback) {
+        var condition;
+        if (id) {
+            condition = {
                 id: id
-            }
+            };
+        } else {
+            condition = {
+                account_id: account_id
+            };
+        }
+        Profile.findOne({
+            where: condition
         }).then(found => {
-            return found;
+            if (found && found.dataValues) {
+                callback(null,found.dataValues);
+            } else {
+                callback(null,null);
+            }
         }).catch(err => {
-            return err;
+            callback(err,null);
         });
     }
 };
