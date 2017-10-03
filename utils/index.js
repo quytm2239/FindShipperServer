@@ -7,6 +7,49 @@ var passwordHash = require('password-hash');
 var errcode = require('./../errcode');
 var fs = require("fs");
 
+const listVNPhone = {
+'096'  : 'Viettel',
+'097'  : 'Viettel',
+'098'  : 'Viettel',
+'0162' : 'Viettel',
+'0163' : 'Viettel',
+'0164' : 'Viettel',
+'0165' : 'Viettel',
+'0166' : 'Viettel',
+'0167' : 'Viettel',
+'0168' : 'Viettel',
+'0169' : 'Viettel',
+
+'090'  : 'Mobifone',
+'093'  : 'Mobifone',
+'0120' : 'Mobifone',
+'0121' : 'Mobifone',
+'0122' : 'Mobifone',
+'0126' : 'Mobifone',
+'0128' : 'Mobifone',
+
+'091'  : 'Vinaphone',
+'094'  : 'Vinaphone',
+'0123' : 'Vinaphone',
+'0124' : 'Vinaphone',
+'0125' : 'Vinaphone',
+'0127' : 'Vinaphone',
+'0129' : 'Vinaphone',
+
+'0993' : 'Gmobile',
+'0994' : 'Gmobile',
+'0995' : 'Gmobile',
+'0996' : 'Gmobile',
+'0997' : 'Gmobile',
+'0199' : 'Gmobile',
+
+'092'  : 'Vietnamobile',
+'0186' : 'Vietnamobile',
+'0188' : 'Vietnamobile',
+
+'095'  : 'SFone'
+};
+
 module.exports =
 {
     getDistance: function (lat1,lon1,lat2,lon2)
@@ -151,10 +194,25 @@ module.exports =
         }
         return true;
     },
-    validatePhone: function (phone)
+    isValidPhone: function (phone)
     {
-    	var regex = /^[0-9]{10,11}$/;
-    	return regex.test(phone);
+        var found = false;
+        var matchKey = '';
+        for (var k in listVNPhone) {
+            found = phone.startsWith(k);
+            if (found) {
+                matchKey = k;
+                break;
+            }
+        }
+
+        if (!found) {
+            return false;
+        }
+
+        var tmpPhone = phone.replace(matchKey, '');
+    	var regex = /^[0-9]{7}$/;
+    	return regex.test(tmpPhone);
     },
     validateCoordinate: function (latitude,longitude)
     {
@@ -225,7 +283,7 @@ module.exports =
                 console.log(error);
             }else{
                 console.log('Message sent: ' + info.response);
-            };
+            }
         });
     },
     createDir: function (base_path,account_id,sub_path) {

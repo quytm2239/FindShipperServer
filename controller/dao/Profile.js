@@ -2,9 +2,11 @@ const Profile = require('./../../model').Profile;
 
 module.exports =
 {
-    update: function (account_id,address,phone,rate,callback) {
+    update: function (account_id,province,district,street,phone,rate,callback) {
         Profile.update({
-            address: address,
+            province: province,
+            district: district,
+            street: street,
             phone: phone,
             rate: rate
         }, {

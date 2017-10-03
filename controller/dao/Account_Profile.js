@@ -5,7 +5,7 @@ const sequelize = require('./../../dbconnection/mysql');
 
 module.exports =
 {
-    create: function (email,password,type,full_name,gender,birthday,address,phone,rate,callback) {
+    create: function (email,password,type,full_name,gender,birthday,province,district,street,phone,rate,callback) {
         Account
         .findOne({
             where: {
@@ -33,7 +33,9 @@ module.exports =
                             full_name: full_name,
                             gender: gender,
                             birthday: correctBirthday,
-                            address: address,
+                            province: province,
+                            district: district,
+                            street: street,
                             phone: phone,
                             rate: rate
                             }, {transaction: t}

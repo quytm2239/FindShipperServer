@@ -35,7 +35,7 @@ module.exports = function(app,config,beforeRouter,controller){
 					var token = jwt.sign(found, config.super_secret, {
 						expiresIn: 86400 // expires in 24 hours
 					});
-					var responseContent = utils.responseWithSuccess(true,'Thành công',found);
+					var responseContent = utils.responseWithSuccess(true,'Thành công',[found]);
 					responseContent.token = token;
 					res.status(200).send(responseContent);
 				} else {

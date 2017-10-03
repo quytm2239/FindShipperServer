@@ -29,7 +29,7 @@ module.exports = function(app,config,beforeRouter,controller){
 							res.status(500).send(utils.responseWithSuccess(false,err,[]));
 						} else {
 							utils.sendMailResetPass(email,randomPassword);
-							res.status(200).send(utils.responseWithSuccess(true,'Thành công, xin vui lòng check mail để lấy mật khẩu mới',result));
+							res.status(200).send(utils.responseWithSuccess(true,'Thành công, xin vui lòng check mail để lấy mật khẩu mới',[result]));
 						}
 					});
 				} else {
