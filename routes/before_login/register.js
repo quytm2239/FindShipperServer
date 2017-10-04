@@ -18,6 +18,7 @@ module.exports = function(app,config,beforeRouter,controller){
 		var full_name 		= req.body.full_name;
 		var gender 			= req.body.gender;
 		var birthday 		= req.body.birthday;
+		var province 		= req.body.province;
 		var district 		= req.body.district;
 		var street 			= req.body.street;
 		var phone 			= req.body.phone;
@@ -50,7 +51,7 @@ module.exports = function(app,config,beforeRouter,controller){
 		var password_hash = utils.hashPass(password);
 		controller
 		.Account_Profile
-		.create(email,password_hash,type,full_name,gender,birthday,'Hà Nội',district,street,phone,0,function (err,result) {
+		.create(email,password_hash,type,full_name,gender,birthday,province,district,street,phone,0,function (err,result) {
 			if (err) {
 				res.status(500).send(utils.responseWithSuccess(false,err,[]));
 			} else {
