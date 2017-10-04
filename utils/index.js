@@ -112,7 +112,7 @@ module.exports =
         };
         return JSONobj;
     },
-    chkObj: function (obj)
+    isNotNull: function (obj)
     {
         if ((obj === undefined || obj === null || obj.length == 0) == false) {
     		return true;
@@ -231,6 +231,12 @@ module.exports =
         var diff = new Date().getTime() - birthDay.getTime();
     	return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
     },
+    addDate: function (date,seconds)
+    {
+        var t1 = date.getTime();
+        var t2 = t1 + seconds * 1000;
+        return new Date(t2);
+    },
     sendMailResetPass: function (emailLogin, resetPass)
     {
         var transporter = nodemailer.createTransport({
@@ -298,7 +304,7 @@ module.exports =
     },
     removeDir: function (base_path,account_id,sub_path) {
         console.log("Going to remove directory in " + base_path + " for account_id: " + account_id);
-        fs.rmdir(base_path + '/' + account_id + (module.exports.chkObj(sub_path) ? '/' + sub_path : ''),function(err){
+        fs.rmdir(base_path + '/' + account_id + (module.exports.isNotNull(sub_path) ? '/' + sub_path : ''),function(err){
             if (err) {
                 return console.error(err);
             }
@@ -315,7 +321,7 @@ module.exports =
         });
     },
     createAccountDir: function (base_path,account_id,sub_path) {
-        fs.mkdir(base_path + '/' + account_id + (module.exports.chkObj(sub_path) ? '/' + sub_path : ''),function(err){
+        fs.mkdir(base_path + '/' + account_id + (module.exports.isNotNull(sub_path) ? '/' + sub_path : ''),function(err){
             if (err) {
                 console.error(err);
             } else {

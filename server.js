@@ -23,6 +23,8 @@ app.set('utils',utils)
 app.set('errcode',errcode)
 app.set('upload_dir',__dirname + '/uploaded_image')
 
+cron_task = require('./cron_task')(require('./controller'));
+
 routes = require('./routes')(app,express,config);
 
 server.listen(process.env.PORT || config.PORT, function(){

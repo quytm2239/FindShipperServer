@@ -11,9 +11,9 @@ module.exports = function(app,config,beforeRouter,controller){
 		var email = req.body.email;
 
 		// Validate email
-		if (!(utils.chkObj(email)) || !(utils.validateEmail(email)))
+		if (!(utils.isNotNull(email)) || !(utils.validateEmail(email)))
 		{
-			res.status(400).send(utils.responseConvention(errcode.code_null_invalid_email,[]));
+			res.status(400).send(utils.responseWithSuccess(false,errcode.not_exist_email,[]));
 			return;
 		}
 
@@ -26,7 +26,7 @@ module.exports = function(app,config,beforeRouter,controller){
 					var randomPassword = Math.random().toString(36).slice(-8);
 					controller.Account.changePassword(email,utils.hashPass(randomPassword),function(err,result) {
 						if (err) {
-							res.status(500).send(utils.responseWithSuccess(false,err,[]));
+							res.status(500).send(utils.responseWithSuccess(false,errcode.internal_error,[]));
 						} else {
 							utils.sendMailResetPass(email,randomPassword);
 							res.status(200).send(utils.responseWithSuccess(true,'Thành công, xin vui lòng check mail để lấy mật khẩu mới',[result]));

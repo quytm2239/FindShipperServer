@@ -22,7 +22,7 @@ module.exports = function(app,config,afterRouter,controller){
 			if (err) {
 				res.status(500).send(utils.response(err,[]));
 			} else {
-				var responseContent = utils.response('Thành công',found ? [found] : []);
+				var responseContent = utils.response(errcode.success,found ? [found] : []);
 				res.status(200).send(responseContent);
 			}
 		});
@@ -36,9 +36,9 @@ module.exports = function(app,config,afterRouter,controller){
 
 		controller.Profile.update(account_id,address,phone,function(err, updated) {
 			if (err) {
-				res.status(500).send(utils.responseWithSuccess(false, err,[]));
+				res.status(500).send(utils.responseWithSuccess(false,errcode.internal_error,[]));
 			} else {
-				var responseContent = utils.responseWithSuccess(true, 'Thành công',[]);
+				var responseContent = utils.responseWithSuccess(true, errcode.success,[]);
 				res.status(200).send(responseContent);
 			}
 		});

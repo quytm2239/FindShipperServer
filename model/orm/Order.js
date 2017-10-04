@@ -5,6 +5,7 @@ var Sequelize = require('sequelize');
 var Order = sequelize.define('Order', {
     id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
     account_id: Sequelize.INTEGER,
+    shipper_id: Sequelize.INTEGER,
     status: Sequelize.INTEGER, // (0 open, 1 choosing, 2 delivering, 3 closed, 4 expired)
     open_time: Sequelize.DATE,
     close_time: Sequelize.DATE,

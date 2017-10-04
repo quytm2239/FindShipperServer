@@ -27,24 +27,24 @@ module.exports = function(app,config,beforeRouter,controller){
 		// Validate email
 		if (!(utils.validateEmail(email)))
 		{
-			res.status(400).send(utils.responseConvention(errcode.invalid_email,[]));
+			res.status(400).send(utils.responseWithSuccess(false,errcode.invalid_email,[]));
 			return;
 		}
 
 		// Validate password
-		if ((utils.chkObj(password)) && (password.length > 16 || password.length < 8)) {
-			res.status(400).send(utils.responseConvention(errcode.invalid_password,[]));
+		if ((utils.isNotNull(password)) && (password.length > 16 || password.length < 8)) {
+			res.status(400).send(utils.responseWithSuccess(false,errcode.invalid_password,[]));
 			return;
 		}
 
 		if (!(utils.checkAge(birthday))) {
-			res.status(400).send(utils.responseConvention(errcode.invalid_age,[]));
+			res.status(400).send(utils.responseWithSuccess(false,errcode.invalid_age,[]));
 			return;
 		}
 
 		// Validate phone
 		if (!(utils.isValidPhone(phone))) {
-			res.status(400).send(utils.responseConvention(errcode.code_null_invalid_phone,[]));
+			res.status(400).send(utils.responseWithSuccess(false,errcode.invalid_phone,[]));
 			return;
 		}
 
@@ -53,9 +53,13 @@ module.exports = function(app,config,beforeRouter,controller){
 		.Account_Profile
 		.create(email,password_hash,type,full_name,gender,birthday,province,district,street,phone,0,function (err,result) {
 			if (err) {
-				res.status(500).send(utils.responseWithSuccess(false,err,[]));
+				res.status(500).send(utils.responseWithSuccess(false,errcode.internal_error,[]));
 			} else {
-				res.status(200).send(utils.responseWithSuccess(true,'Thành công',[result]));
+				if (result) {
+					res.status(200).send(utils.responseWithSuccess(true,errcode.success,[result]));
+				} else {
+					res.status(400).send(utils.responseWithSuccess(false,errcode.exist_email,[]));
+				}
 			}
 		});
 	});

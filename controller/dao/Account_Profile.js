@@ -15,7 +15,7 @@ module.exports =
             console.log(account);
             if (account && account.dataValues) {
                 // [EXIST], do nothing, just return a error message
-                callback('Email đã tồn tại',null);
+                callback(null,null);
             } else {
                 var temp = birthday.split('/');
                 //YYYY-MM-DDTHH:MM:SS

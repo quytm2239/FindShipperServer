@@ -14,9 +14,11 @@ module.exports =
                 account_id: account_id
             }
         }).then(updated => {
-            return updated;
+            callback(null,updated);
+            console.log(updated);
         }).catch(err => {
-            return err;
+            callback(err,null);
+            console.log(err);
         });
     },
     selectById: function (id,account_id,callback) {
