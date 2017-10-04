@@ -3,5 +3,6 @@
 module.exports = {
     Account: require('./orm/Account'),
     Order: require('./orm/Order'),
-    Profile: require('./orm/Profile')
+    Profile: require('./orm/Profile'),
+    Request: require('./orm/Request')
 };

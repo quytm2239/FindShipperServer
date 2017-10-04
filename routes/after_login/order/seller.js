@@ -79,6 +79,40 @@ module.exports = function(app,config,afterRouter,controller){
 		});
 	});
 
+	afterRouter.post('/unchoose-order', function(req, res) {
+
+		var type 			= req.decoded.type;
+		var order_id 		= req.body.order_id;
+
+		// Check account type
+		if (type == config.acc_type.SHIPPER) {
+			res.status(400).send(utils.responseWithSuccess(false, errcode.not_allow_shipper_choose,[]));
+			return;
+		}
+
+		if (utils.isNotNull(order_id) == false || Number.isInteger(order_id) == false) {
+			res.status(400).send(utils.responseWithSuccess(false, errcode.not_exist_order_id + order_id,[]));
+			return;
+		}
+
+		controller.Order.selectById(order_id,null,null,function (err, found) {
+			if (err) {
+				res.status(500).send(utils.responseWithSuccess(false,errcode.internal_error,[]));
+			} else if (!found) {
+				res.status(400).send(utils.responseWithSuccess(false, errcode.not_exist_order_id + order_id,[]));
+			} else {
+				controller.Order.updatePartial(found.account_id,0,config.order_status.OPENING,null,null,function(err, updated) {
+					if (err) {
+						res.status(500).send(utils.responseWithSuccess(false,errcode.internal_error,[]));
+					} else {
+						var responseContent = utils.responseWithSuccess(true, errcode.success,[updated]);
+						res.status(200).send(responseContent);
+					}
+				});
+			}
+		});
+	});
+
 	afterRouter.post('/deliver-order', function(req, res) {
 
 		var account_id		= req.decoded.id;
