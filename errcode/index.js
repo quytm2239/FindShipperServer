@@ -16,9 +16,10 @@ module.exports={
     invalid_total_deposit: 'Tổng tiền hoặc tiền cọc phải là chữ số (0-9)!',
     invalid_status: 'Trạng thái (status) đơn hàng phải là chữ số (0 - open, 1 - choosing, 2 - delivering, 3 - expired, 4 - closed)!',
     invalid_action: 'Action phải là chữ số (0 - delivering, 1 - closed)!',
-    not_allow_seller_choose: 'Bạn là người bán hàng. Không thể chọn đơn hàng!',
+    not_allow_shipper_choose: 'Bạn là shipper. Không thể chọn đơn hàng!',
     not_allow_shipper_open: 'Bạn là shipper. Không thể tạo đơn hàng!',
     not_allow_shipper_deliver: 'Bạn là shipper. Không thể chọn giao hàng!',
     not_allow_shipper_close: 'Bạn là shipper. Không thể chọn hoàn thành!',
+    not_allow_seller_request: 'Bạn là người bán hàng. Không thể gửi yêu cầu ship!',
     not_exist_order_id: 'Không tìm thấy order với id: '
 };

@@ -24,4 +24,5 @@ module.exports = function(app,express,config){
 	app.use(config.api_path,afterRouter);
 
 	require(aft_path + '/profile')(app,config,afterRouter,controller);
+	require(aft_path + '/order')(app,config,afterRouter,controller);
 };
